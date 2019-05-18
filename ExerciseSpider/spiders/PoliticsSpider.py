@@ -1,22 +1,21 @@
 # -*- coding: utf-8 -*-
 import requests
 import scrapy
-
-from scrapy.loader import ItemLoader
 from lxml import etree
+from scrapy.loader import ItemLoader
 
-from EnglishSpider.items import EnglishItem
-from EnglishSpider.spiders.utils.util import deal_erji_raw_str
+from ExerciseSpider.items import PoliticsItem
+from ExerciseSpider.spiders.utils.util import deal_erji_raw_str
 
 
-class WordSpider(scrapy.Spider):
-    name = 'word'
+class PoliticsspiderSpider(scrapy.Spider):
+    name = 'PoliticsSpider'
     allowed_domains = ['tiku.21cnjy.com/tiku.php']
-    start_urls = []
+    start_urls = ['http://tiku.21cnjy.com/tiku.php/']
 
     def start_requests(self):
 
-        _u = "http://tiku.21cnjy.com/tiku.php?mod=quest&channel=4&xd=3&cid=1572"
+        _u = "http://tiku.21cnjy.com/tiku.php?mod=quest&channel=9&xd=3"
 
         resp = requests.get(url=_u)
         parser = etree.HTML(resp.text)
@@ -73,7 +72,7 @@ class WordSpider(scrapy.Spider):
         pass
 
     def parse_item(self, response):
-        loader = ItemLoader(item=EnglishItem(), response=response)
+        loader = ItemLoader(item=PoliticsItem(), response=response)
         loader.add_value('yiji', response.meta["yiji"])
         loader.add_value('erji', response.meta["erji"])
 

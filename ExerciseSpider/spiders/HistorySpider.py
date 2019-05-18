@@ -4,18 +4,18 @@ import scrapy
 from lxml import etree
 from scrapy.loader import ItemLoader
 
-from EnglishSpider.items import MathItem
-from EnglishSpider.spiders.utils.util import deal_erji_raw_str
+from ExerciseSpider.items import HistoryItem
+from ExerciseSpider.spiders.utils.util import deal_erji_raw_str
 
 
-class MathspiderSpider(scrapy.Spider):
-    name = 'MathSpider'
+class HistoryspiderSpider(scrapy.Spider):
+    name = 'HistorySpider'
     allowed_domains = ['tiku.21cnjy.com/tiku.php']
     start_urls = ['http://tiku.21cnjy.com/tiku.php/']
 
     def start_requests(self):
 
-        _u = "http://tiku.21cnjy.com/tiku.php?mod=quest&channel=3&xd=3"
+        _u = "http://tiku.21cnjy.com/tiku.php?mod=quest&channel=8&xd=3"
 
         resp = requests.get(url=_u)
         parser = etree.HTML(resp.text)
@@ -72,7 +72,7 @@ class MathspiderSpider(scrapy.Spider):
         pass
 
     def parse_item(self, response):
-        loader = ItemLoader(item=MathItem(), response=response)
+        loader = ItemLoader(item=HistoryItem(), response=response)
         loader.add_value('yiji', response.meta["yiji"])
         loader.add_value('erji', response.meta["erji"])
 

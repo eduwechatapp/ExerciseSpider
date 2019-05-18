@@ -4,18 +4,18 @@ import scrapy
 from lxml import etree
 from scrapy.loader import ItemLoader
 
-from EnglishSpider.items import GeographyItem
-from EnglishSpider.spiders.utils.util import deal_erji_raw_str
+from ExerciseSpider.items import BiologyItem
+from ExerciseSpider.spiders.utils.util import deal_erji_raw_str
 
 
-class GeographyspiderSpider(scrapy.Spider):
-    name = 'GeographySpider'
+class BiologyspiderSpider(scrapy.Spider):
+    name = 'BiologySpider'
     allowed_domains = ['tiku.21cnjy.com/tiku.php']
     start_urls = ['http://tiku.21cnjy.com/tiku.php/']
 
     def start_requests(self):
 
-        _u = "http://tiku.21cnjy.com/tiku.php?mod=quest&channel=10&xd=3"
+        _u = "http://tiku.21cnjy.com/tiku.php?mod=quest&channel=11&xd=3"
 
         resp = requests.get(url=_u)
         parser = etree.HTML(resp.text)
@@ -72,7 +72,7 @@ class GeographyspiderSpider(scrapy.Spider):
         pass
 
     def parse_item(self, response):
-        loader = ItemLoader(item=GeographyItem(), response=response)
+        loader = ItemLoader(item=BiologyItem(), response=response)
         loader.add_value('yiji', response.meta["yiji"])
         loader.add_value('erji', response.meta["erji"])
 

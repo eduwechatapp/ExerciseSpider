@@ -4,18 +4,18 @@ import scrapy
 from lxml import etree
 from scrapy.loader import ItemLoader
 
-from EnglishSpider.items import ChemistryItem
-from EnglishSpider.spiders.utils.util import deal_erji_raw_str
+from ExerciseSpider.items import GeographyItem
+from ExerciseSpider.spiders.utils.util import deal_erji_raw_str
 
 
-class ChemistryspiderSpider(scrapy.Spider):
-    name = 'ChemistrySpider'
+class GeographyspiderSpider(scrapy.Spider):
+    name = 'GeographySpider'
     allowed_domains = ['tiku.21cnjy.com/tiku.php']
     start_urls = ['http://tiku.21cnjy.com/tiku.php/']
 
     def start_requests(self):
 
-        _u = "http://tiku.21cnjy.com/tiku.php?mod=quest&channel=7&xd=3"
+        _u = "http://tiku.21cnjy.com/tiku.php?mod=quest&channel=10&xd=3"
 
         resp = requests.get(url=_u)
         parser = etree.HTML(resp.text)
@@ -37,8 +37,7 @@ class ChemistryspiderSpider(scrapy.Spider):
         # 拿到yiji
         test_yiji = response.xpath("//ul[@id='con_one_1']/li[contains(@class, 'open')]").extract_first()
         if test_yiji is None:
-            yiji = deal_erji_raw_str(
-                response.xpath("//div[@class='shiti_container']/div[2]/h2/b/text()").extract_first())
+            yiji = deal_erji_raw_str(response.xpath("//div[@class='shiti_container']/div[2]/h2/b/text()").extract_first())
         else:
             yiji = response.xpath("//ul[@id='con_one_1']/li[contains(@class, 'open')]/a/text()").extract_first()
 
@@ -56,8 +55,7 @@ class ChemistryspiderSpider(scrapy.Spider):
         for i in item_urls:
             yield scrapy.Request(url=i,
                                  callback=self.parse_item,
-                                 meta={"erji": deal_erji_raw_str(response.xpath(
-                                     "//div[@class='shiti_container']/div[2]/h2/b/text()").extract_first()),
+                                 meta={"erji": deal_erji_raw_str(response.xpath("//div[@class='shiti_container']/div[2]/h2/b/text()").extract_first()),
                                        "yiji": yiji},
                                  dont_filter=True)
 
@@ -74,7 +72,7 @@ class ChemistryspiderSpider(scrapy.Spider):
         pass
 
     def parse_item(self, response):
-        loader = ItemLoader(item=ChemistryItem(), response=response)
+        loader = ItemLoader(item=GeographyItem(), response=response)
         loader.add_value('yiji', response.meta["yiji"])
         loader.add_value('erji', response.meta["erji"])
 

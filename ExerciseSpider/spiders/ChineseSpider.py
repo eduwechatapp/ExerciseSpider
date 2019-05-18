@@ -4,8 +4,8 @@ import scrapy
 from lxml import etree
 from scrapy.loader import ItemLoader
 
-from EnglishSpider.items import ChineseItem
-from EnglishSpider.spiders.utils.util import deal_erji_raw_str
+from ExerciseSpider.items import ChineseItem
+from ExerciseSpider.spiders.utils.util import deal_erji_raw_str
 
 
 class ChinesespiderSpider(scrapy.Spider):

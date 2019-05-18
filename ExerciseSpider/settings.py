@@ -9,14 +9,14 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'EnglishSpider'
+BOT_NAME = 'ExerciseSpider'
 
-SPIDER_MODULES = ['EnglishSpider.spiders']
-NEWSPIDER_MODULE = 'EnglishSpider.spiders'
+SPIDER_MODULES = ['ExerciseSpider.spiders']
+NEWSPIDER_MODULE = 'ExerciseSpider.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'EnglishSpider (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -46,15 +46,15 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'EnglishSpider.middlewares.EnglishspiderSpiderMiddleware': 543,
-#}
+SPIDER_MIDDLEWARES = {
+   'ExerciseSpider.middlewares.EnglishspiderSpiderMiddleware': 543,
+}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'EnglishSpider.middlewares.EnglishspiderDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'ExerciseSpider.middlewares.EnglishspiderDownloaderMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -65,15 +65,15 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # 'EnglishSpider.pipelines.EnglishSpiderPipeline': 300,
-   # 'EnglishSpider.pipelines.ChineseSpiderPipeline': 300,
-   # 'EnglishSpider.pipelines.MathSpiderPipeline': 300,
-   # 'EnglishSpider.pipelines.PhysicsSpiderPipeline': 300,
-   'EnglishSpider.pipelines.ChemistrySpiderPipeline': 300,
-   # 'EnglishSpider.pipelines.BiologySpiderPipeline': 300,
-   # 'EnglishSpider.pipelines.GeographySpiderPipeline': 300,
-   # 'EnglishSpider.pipelines.HistorySpiderPipeline': 300,
-   # 'EnglishSpider.pipelines.PoliticsSpiderPipeline': 300,
+   # 'ExerciseSpider.pipelines.EnglishSpiderPipeline': 300,
+   # 'ExerciseSpider.pipelines.ChineseSpiderPipeline': 300,
+   # 'ExerciseSpider.pipelines.MathSpiderPipeline': 300,
+   # 'ExerciseSpider.pipelines.PhysicsSpiderPipeline': 300,
+   # 'ExerciseSpider.pipelines.ChemistrySpiderPipeline': 300,
+   # 'ExerciseSpider.pipelines.BiologySpiderPipeline': 300,
+   # 'ExerciseSpider.pipelines.GeographySpiderPipeline': 300,
+   # 'ExerciseSpider.pipelines.HistorySpiderPipeline': 300,
+   'ExerciseSpider.pipelines.PoliticsSpiderPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
