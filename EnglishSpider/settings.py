@@ -65,7 +65,15 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'EnglishSpider.pipelines.EnglishspiderPipeline': 300,
+   # 'EnglishSpider.pipelines.EnglishSpiderPipeline': 300,
+   # 'EnglishSpider.pipelines.ChineseSpiderPipeline': 300,
+   # 'EnglishSpider.pipelines.MathSpiderPipeline': 300,
+   # 'EnglishSpider.pipelines.PhysicsSpiderPipeline': 300,
+   'EnglishSpider.pipelines.ChemistrySpiderPipeline': 300,
+   # 'EnglishSpider.pipelines.BiologySpiderPipeline': 300,
+   # 'EnglishSpider.pipelines.GeographySpiderPipeline': 300,
+   # 'EnglishSpider.pipelines.HistorySpiderPipeline': 300,
+   # 'EnglishSpider.pipelines.PoliticsSpiderPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

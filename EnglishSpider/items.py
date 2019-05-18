@@ -8,14 +8,9 @@
 import scrapy
 
 
-class EnglishspiderItem(scrapy.Item):
+class ExerciseSpiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
-
-
-class EnglishWordItem(scrapy.Item):
-
     yiji = scrapy.Field()
 
     erji = scrapy.Field()
@@ -25,5 +20,49 @@ class EnglishWordItem(scrapy.Item):
     answer = scrapy.Field()
 
     analysis = scrapy.Field()
+    pass
+
+
+class EnglishItem(ExerciseSpiderItem):
+
+    pass
+
+
+class ChineseItem(ExerciseSpiderItem):
+
+    pass
+
+
+class MathItem(ExerciseSpiderItem):
+
+    pass
+
+
+class PhysicsItem(ExerciseSpiderItem):
+
+    pass
+
+
+class ChemistryItem(ExerciseSpiderItem):
+
+    pass
+
+
+class BiologyItem(ExerciseSpiderItem):
+
+    pass
+
+
+class GeographyItem(ExerciseSpiderItem):
+
+    pass
+
+
+class HistoryItem(ExerciseSpiderItem):
+
+    pass
+
+
+class PoliticsItem(ExerciseSpiderItem):
 
     pass
