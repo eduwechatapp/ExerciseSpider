@@ -47,13 +47,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 SPIDER_MIDDLEWARES = {
-   'ExerciseSpider.middlewares.EnglishspiderSpiderMiddleware': 543,
+   'ExerciseSpider.middlewares.ExerciseSpiderMiddleware': 543,
 }
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'ExerciseSpider.middlewares.EnglishspiderDownloaderMiddleware': 543,
+   'ExerciseSpider.middlewares.ExerciseSpiderDownloaderMiddleware': 543,
 }
 
 # Enable or disable extensions
@@ -65,7 +65,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   # 'ExerciseSpider.pipelines.EnglishSpiderPipeline': 300,
+   'ExerciseSpider.pipelines.EnglishSpiderPipeline': 300,
    # 'ExerciseSpider.pipelines.ChineseSpiderPipeline': 300,
    # 'ExerciseSpider.pipelines.MathSpiderPipeline': 300,
    # 'ExerciseSpider.pipelines.PhysicsSpiderPipeline': 300,
@@ -73,7 +73,7 @@ ITEM_PIPELINES = {
    # 'ExerciseSpider.pipelines.BiologySpiderPipeline': 300,
    # 'ExerciseSpider.pipelines.GeographySpiderPipeline': 300,
    # 'ExerciseSpider.pipelines.HistorySpiderPipeline': 300,
-   'ExerciseSpider.pipelines.PoliticsSpiderPipeline': 300,
+   # 'ExerciseSpider.pipelines.PoliticsSpiderPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

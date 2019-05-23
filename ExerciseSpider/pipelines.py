@@ -4,364 +4,281 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+import random
+import time
+
+import pymongo
+
 import pymysql
+
+from ExerciseSpider.spiders.utils import util
+
+
+def get_data(item):
+    if "yiji" not in item:
+        yiji = ""
+    else:
+        yiji = item["yiji"][0]
+
+    if "erji" not in item:
+        erji = ""
+    else:
+        erji = item["erji"][0]
+
+    if "content" not in item:
+        content = ""
+    else:
+        content = item["content"][0]
+
+    if "answer" not in item:
+        answer = ""
+    else:
+        answer = item["answer"][0]
+
+    if "analysis" not in item:
+        analysis = ""
+    else:
+        analysis = item["analysis"][0]
+
+    if "type" not in item:
+        type = ""
+    else:
+        type = item["type"][0]
+
+    if "choose" not in item:
+        choose = []
+    else:
+        choose = item["choose"]
+
+    if "answer_index" not in item:
+        answer_index = []
+    else:
+        answer_index = item["answer_index"]
+
+    return {
+        "_id": util.md5(yiji + erji + type + answer + str(random.randint(0, 255)) + str(round(time.time() * 1000))),
+        "yiji": yiji,
+        "erji": erji,
+        "content": content,
+        "answer": answer,
+        "type": type,
+        "analysis": analysis,
+        "choose": choose,
+        "answer_index": answer_index
+    }
+    pass
 
 
 class EnglishSpiderPipeline(object):
 
-    db = pymysql.connect("localhost", "root", "0000", "exerciselib")
+    mongo_uri = "mongodb://127.0.0.1"
 
-    cursor = db.cursor()
+    collection_name = "english_lib"
+
+    db_name = "exercise_lib"
+
+    def __init__(self):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.db_name]
+
+    def open_spider(self, spider):
+        pass
+
+    def close_spider(self, spider):
+        self.client.close()
 
     def process_item(self, item, spider):
-
-        if "yiji" not in item:
-            yiji = ""
-        else:
-            yiji = item["yiji"][0].replace("'", "\"")
-
-        if "erji" not in item:
-            erji = ""
-        else:
-            erji = item["erji"][0].replace("'", "\"")
-
-        if "content" not in item:
-            content = ""
-        else:
-            content = item["content"][0].replace("'", "\"")
-
-        if "answer" not in item:
-            answer = ""
-        else:
-            answer = item["answer"][0].replace("'", "\"")
-
-        if "analysis" not in item:
-            analysis = ""
-        else:
-            analysis = item["analysis"][0].replace("'", "\"")
-
-        sql = """INSERT INTO english_lib (yiji, erji, content, answer, analysis) VALUES ('%s', '%s', '%s', '%s', '%s')""" % (yiji, erji, content, answer, analysis)
-
-        self.cursor.execute(sql)
-        self.db.commit()
+        data = get_data(item)
+        self.db[self.collection_name].insert_one(data)
         return item
 
 
 class ChineseSpiderPipeline(object):
 
-    db = pymysql.connect("localhost", "root", "0000", "exerciselib")
+    mongo_uri = "mongodb://127.0.0.1"
 
-    cursor = db.cursor()
+    collection_name = "chinese_lib"
+
+    db_name = "exercise_lib"
+
+    def __init__(self):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.db_name]
+
+    def open_spider(self, spider):
+        pass
+
+    def close_spider(self, spider):
+        self.client.close()
 
     def process_item(self, item, spider):
-
-        if "yiji" not in item:
-            yiji = ""
-        else:
-            yiji = item["yiji"][0].replace("'", "\"")
-
-        if "erji" not in item:
-            erji = ""
-        else:
-            erji = item["erji"][0].replace("'", "\"")
-
-        if "content" not in item:
-            content = ""
-        else:
-            content = item["content"][0].replace("'", "\"")
-
-        if "answer" not in item:
-            answer = ""
-        else:
-            answer = item["answer"][0].replace("'", "\"")
-
-        if "analysis" not in item:
-            analysis = ""
-        else:
-            analysis = item["analysis"][0].replace("'", "\"")
-
-        sql = """INSERT INTO chinese_lib (yiji, erji, content, answer, analysis) VALUES ('%s', '%s', '%s', '%s', '%s')""" % (yiji, erji, content, answer, analysis)
-
-        self.cursor.execute(sql)
-        self.db.commit()
+        data = get_data(item)
+        self.db[self.collection_name].insert_one(data)
         return item
 
 
 class MathSpiderPipeline(object):
 
-    db = pymysql.connect("localhost", "root", "0000", "exerciselib")
+    mongo_uri = "mongodb://127.0.0.1"
 
-    cursor = db.cursor()
+    collection_name = "math_lib"
+
+    db_name = "exercise_lib"
+
+    def __init__(self):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.db_name]
+
+    def open_spider(self, spider):
+        pass
+
+    def close_spider(self, spider):
+        self.client.close()
 
     def process_item(self, item, spider):
-
-        if "yiji" not in item:
-            yiji = ""
-        else:
-            yiji = item["yiji"][0].replace("'", "\"")
-
-        if "erji" not in item:
-            erji = ""
-        else:
-            erji = item["erji"][0].replace("'", "\"")
-
-        if "content" not in item:
-            content = ""
-        else:
-            content = item["content"][0].replace("'", "\"")
-
-        if "answer" not in item:
-            answer = ""
-        else:
-            answer = item["answer"][0].replace("'", "\"")
-
-        if "analysis" not in item:
-            analysis = ""
-        else:
-            analysis = item["analysis"][0].replace("'", "\"")
-
-        sql = """INSERT INTO math_lib (yiji, erji, content, answer, analysis) VALUES ('%s', '%s', '%s', '%s', '%s')""" % (yiji, erji, content, answer, analysis)
-
-        self.cursor.execute(sql)
-        self.db.commit()
+        data = get_data(item)
+        self.db[self.collection_name].insert_one(data)
         return item
 
 
 class PhysicsSpiderPipeline(object):
 
-    db = pymysql.connect("localhost", "root", "0000", "exerciselib")
+    mongo_uri = "mongodb://127.0.0.1"
 
-    cursor = db.cursor()
+    collection_name = "physics_lib"
+
+    db_name = "exercise_lib"
+
+    def __init__(self):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.db_name]
+
+    def open_spider(self, spider):
+        pass
+
+    def close_spider(self, spider):
+        self.client.close()
 
     def process_item(self, item, spider):
-
-        if "yiji" not in item:
-            yiji = ""
-        else:
-            yiji = item["yiji"][0].replace("'", "\"")
-
-        if "erji" not in item:
-            erji = ""
-        else:
-            erji = item["erji"][0].replace("'", "\"")
-
-        if "content" not in item:
-            content = ""
-        else:
-            content = item["content"][0].replace("'", "\"")
-
-        if "answer" not in item:
-            answer = ""
-        else:
-            answer = item["answer"][0].replace("'", "\"")
-
-        if "analysis" not in item:
-            analysis = ""
-        else:
-            analysis = item["analysis"][0].replace("'", "\"")
-
-        sql = """INSERT INTO physics_lib (yiji, erji, content, answer, analysis) VALUES ('%s', '%s', '%s', '%s', '%s')""" % (yiji, erji, content, answer, analysis)
-
-        self.cursor.execute(sql)
-        self.db.commit()
+        data = get_data(item)
+        self.db[self.collection_name].insert_one(data)
         return item
 
 
 class ChemistrySpiderPipeline(object):
 
-    db = pymysql.connect("localhost", "root", "0000", "exerciselib")
+    mongo_uri = "mongodb://127.0.0.1"
 
-    cursor = db.cursor()
+    collection_name = "chemistry_lib"
+
+    db_name = "exercise_lib"
+
+    def __init__(self):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.db_name]
+
+    def open_spider(self, spider):
+        pass
+
+    def close_spider(self, spider):
+        self.client.close()
 
     def process_item(self, item, spider):
-
-        if "yiji" not in item:
-            yiji = ""
-        else:
-            yiji = item["yiji"][0].replace("'", "\"")
-
-        if "erji" not in item:
-            erji = ""
-        else:
-            erji = item["erji"][0].replace("'", "\"")
-
-        if "content" not in item:
-            content = ""
-        else:
-            content = item["content"][0].replace("'", "\"")
-
-        if "answer" not in item:
-            answer = ""
-        else:
-            answer = item["answer"][0].replace("'", "\"")
-
-        if "analysis" not in item:
-            analysis = ""
-        else:
-            analysis = item["analysis"][0].replace("'", "\"")
-
-        sql = """INSERT INTO chemistry_lib (yiji, erji, content, answer, analysis) VALUES ('%s', '%s', '%s', '%s', '%s')""" % (yiji, erji, content, answer, analysis)
-
-        self.cursor.execute(sql)
-        self.db.commit()
+        data = get_data(item)
+        self.db[self.collection_name].insert_one(data)
         return item
 
 
 class BiologySpiderPipeline(object):
 
-    db = pymysql.connect("localhost", "root", "0000", "exerciselib")
+    mongo_uri = "mongodb://127.0.0.1"
 
-    cursor = db.cursor()
+    collection_name = "biology_lib"
+
+    db_name = "exercise_lib"
+
+    def __init__(self):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.db_name]
+
+    def open_spider(self, spider):
+        pass
+
+    def close_spider(self, spider):
+        self.client.close()
 
     def process_item(self, item, spider):
-
-        if "yiji" not in item:
-            yiji = ""
-        else:
-            yiji = item["yiji"][0].replace("'", "\"")
-
-        if "erji" not in item:
-            erji = ""
-        else:
-            erji = item["erji"][0].replace("'", "\"")
-
-        if "content" not in item:
-            content = ""
-        else:
-            content = item["content"][0].replace("'", "\"")
-
-        if "answer" not in item:
-            answer = ""
-        else:
-            answer = item["answer"][0].replace("'", "\"")
-
-        if "analysis" not in item:
-            analysis = ""
-        else:
-            analysis = item["analysis"][0].replace("'", "\"")
-
-        sql = """INSERT INTO biology_lib (yiji, erji, content, answer, analysis) VALUES ('%s', '%s', '%s', '%s', '%s')""" % (yiji, erji, content, answer, analysis)
-
-        self.cursor.execute(sql)
-        self.db.commit()
+        data = get_data(item)
+        self.db[self.collection_name].insert_one(data)
         return item
 
 
 class GeographySpiderPipeline(object):
 
-    db = pymysql.connect("localhost", "root", "0000", "exerciselib")
+    mongo_uri = "mongodb://127.0.0.1"
 
-    cursor = db.cursor()
+    collection_name = "geography_lib"
+
+    db_name = "exercise_lib"
+
+    def __init__(self):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.db_name]
+
+    def open_spider(self, spider):
+        pass
+
+    def close_spider(self, spider):
+        self.client.close()
 
     def process_item(self, item, spider):
-
-        if "yiji" not in item:
-            yiji = ""
-        else:
-            yiji = item["yiji"][0].replace("'", "\"")
-
-        if "erji" not in item:
-            erji = ""
-        else:
-            erji = item["erji"][0].replace("'", "\"")
-
-        if "content" not in item:
-            content = ""
-        else:
-            content = item["content"][0].replace("'", "\"")
-
-        if "answer" not in item:
-            answer = ""
-        else:
-            answer = item["answer"][0].replace("'", "\"")
-
-        if "analysis" not in item:
-            analysis = ""
-        else:
-            analysis = item["analysis"][0].replace("'", "\"")
-
-        sql = """INSERT INTO geography_lib (yiji, erji, content, answer, analysis) VALUES ('%s', '%s', '%s', '%s', '%s')""" % (yiji, erji, content, answer, analysis)
-
-        self.cursor.execute(sql)
-        self.db.commit()
+        data = get_data(item)
+        self.db[self.collection_name].insert_one(data)
         return item
 
 
 class HistorySpiderPipeline(object):
 
-    db = pymysql.connect("localhost", "root", "0000", "exerciselib")
+    mongo_uri = "mongodb://127.0.0.1"
 
-    cursor = db.cursor()
+    collection_name = "history_lib"
+
+    db_name = "exercise_lib"
+
+    def __init__(self):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.db_name]
+
+    def open_spider(self, spider):
+        pass
+
+    def close_spider(self, spider):
+        self.client.close()
 
     def process_item(self, item, spider):
-
-        if "yiji" not in item:
-            yiji = ""
-        else:
-            yiji = item["yiji"][0].replace("'", "\"")
-
-        if "erji" not in item:
-            erji = ""
-        else:
-            erji = item["erji"][0].replace("'", "\"")
-
-        if "content" not in item:
-            content = ""
-        else:
-            content = item["content"][0].replace("'", "\"")
-
-        if "answer" not in item:
-            answer = ""
-        else:
-            answer = item["answer"][0].replace("'", "\"")
-
-        if "analysis" not in item:
-            analysis = ""
-        else:
-            analysis = item["analysis"][0].replace("'", "\"")
-
-        sql = """INSERT INTO history_lib (yiji, erji, content, answer, analysis) VALUES ('%s', '%s', '%s', '%s', '%s')""" % (yiji, erji, content, answer, analysis)
-
-        self.cursor.execute(sql)
-        self.db.commit()
+        data = get_data(item)
+        self.db[self.collection_name].insert_one(data)
         return item
-
 
 class PoliticsSpiderPipeline(object):
 
-    db = pymysql.connect("localhost", "root", "0000", "exerciselib")
+    mongo_uri = "mongodb://127.0.0.1"
 
-    cursor = db.cursor()
+    collection_name = "politics_lib"
+
+    db_name = "exercise_lib"
+
+    def __init__(self):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.db_name]
+
+    def open_spider(self, spider):
+        pass
+
+    def close_spider(self, spider):
+        self.client.close()
 
     def process_item(self, item, spider):
-
-        if "yiji" not in item:
-            yiji = ""
-        else:
-            yiji = item["yiji"][0].replace("'", "\"")
-
-        if "erji" not in item:
-            erji = ""
-        else:
-            erji = item["erji"][0].replace("'", "\"")
-
-        if "content" not in item:
-            content = ""
-        else:
-            content = item["content"][0].replace("'", "\"")
-
-        if "answer" not in item:
-            answer = ""
-        else:
-            answer = item["answer"][0].replace("'", "\"")
-
-        if "analysis" not in item:
-            analysis = ""
-        else:
-            analysis = item["analysis"][0].replace("'", "\"")
-
-        sql = """INSERT INTO politics_lib (yiji, erji, content, answer, analysis) VALUES ('%s', '%s', '%s', '%s', '%s')""" % (yiji, erji, content, answer, analysis)
-
-        self.cursor.execute(sql)
-        self.db.commit()
+        data = get_data(item)
+        self.db[self.collection_name].insert_one(data)
         return item

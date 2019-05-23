@@ -11,13 +11,20 @@ import scrapy
 class ExerciseSpiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    type = scrapy.Field()
+
     yiji = scrapy.Field()
 
     erji = scrapy.Field()
 
     content = scrapy.Field()
 
+    # 选项
+    choose = scrapy.Field()
+
     answer = scrapy.Field()
+
+    answer_index = scrapy.Field()
 
     analysis = scrapy.Field()
     pass
