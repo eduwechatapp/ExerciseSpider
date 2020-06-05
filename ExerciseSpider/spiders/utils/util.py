@@ -122,6 +122,20 @@ def deal_erji_raw_str(raw_str):
         return "N/A"
     pass
 
+def deal_last_page(raw_str):
+    """
+    处理last_page 前三个点
+    :param raw_str:
+    :return: int
+    """
+    resu = re.match("[0-9]+", raw_str)
+
+    if resu:
+        return resu
+    else:
+        return None
+    pass
+
 
 def get_last_number(n):
     resp = re.match(".*?(\d+)", n)

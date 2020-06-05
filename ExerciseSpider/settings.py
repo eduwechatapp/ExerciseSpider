@@ -65,9 +65,9 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'ExerciseSpider.pipelines.EnglishSpiderPipeline': 300,
+   # 'ExerciseSpider.pipelines.EnglishSpiderPipeline': 300,
    # 'ExerciseSpider.pipelines.ChineseSpiderPipeline': 300,
-   # 'ExerciseSpider.pipelines.MathSpiderPipeline': 300,
+   'ExerciseSpider.pipelines.MathSpiderPipeline': 300,
    # 'ExerciseSpider.pipelines.PhysicsSpiderPipeline': 300,
    # 'ExerciseSpider.pipelines.ChemistrySpiderPipeline': 300,
    # 'ExerciseSpider.pipelines.BiologySpiderPipeline': 300,

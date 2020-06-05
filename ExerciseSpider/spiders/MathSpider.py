@@ -12,11 +12,11 @@ from ExerciseSpider.spiders.utils.util import deal_erji_raw_str
 class MathspiderSpider(scrapy.Spider):
     name = 'MathSpider'
     allowed_domains = ['tiku.21cnjy.com/tiku.php']
-    start_urls = ['http://tiku.21cnjy.com/tiku.php/']
+    start_urls = ['http://tiku.21cnjy.com/tiku.php?mod=quest&channel=3&cid=1431&xd=3/']
 
     def start_requests(self):
 
-        _u = "http://tiku.21cnjy.com/tiku.php?mod=quest&channel=3&xd=3"
+        _u = "http://tiku.21cnjy.com/tiku.php?mod=quest&channel=3&cid=1431&xd=3"
 
         resp = requests.get(url=_u)
         parser = etree.HTML(resp.text)
@@ -53,11 +53,11 @@ class MathspiderSpider(scrapy.Spider):
         t_type = response.meta["type"]
 
         # 拿到yiji
-        test_yiji = response.xpath("//ul[@id='con_one_1']/li[contains(@class, 'open')]").extract_first()
+        test_yiji = response.xpath("//ul[@id='con_one_1']/li[@class='open']").extract_first()
         if test_yiji is None:
-            yiji = deal_erji_raw_str(response.xpath("//div[@class='shiti_container']/div[2]/h2/b/text()").extract_first())
+            yiji = response.xpath("//ul[@id='con_one_1']/li[@class='open']/ul/li[@class='open']/b/text()").extract_first()
         else:
-            yiji = response.xpath("//ul[@id='con_one_1']/li[contains(@class, 'open')]/a/text()").extract_first()
+            yiji = response.xpath("//ul[@id='con_one_1']/li[@class='open']/a/text()").extract_first()
 
         # 拿到全页的url
         item_part_urls = response.xpath("//a[@class='view_all']/@href").extract()
@@ -73,7 +73,7 @@ class MathspiderSpider(scrapy.Spider):
         for i in item_urls:
             yield scrapy.Request(url=i,
                                  callback=self.parse_item,
-                                 meta={"erji": deal_erji_raw_str(response.xpath("//div[@class='shiti_container']/div[2]/h2/b/text()").extract_first()),
+                                 meta={"erji": response.xpath("//ul[@id='con_one_1']/li[@class='open']/ul/li[@class='open']/b/text()").extract_first(),
                                        "yiji": yiji,
                                        "type": t_type},
                                  dont_filter=True)
@@ -97,7 +97,7 @@ class MathspiderSpider(scrapy.Spider):
         loader.add_value('erji', response.meta["erji"])
 
         parser = etree.HTML(response.text)
-        root = parser.xpath("//div['answer_detail']/dl/dt")[0]
+        root = parser.xpath("//div[@class='answer_detail']/dl/dt")[0]
 
         if response.meta["type"] == "单选题" or response.meta["type"] == "多选题":
 
